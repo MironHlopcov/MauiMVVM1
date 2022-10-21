@@ -1,0 +1,54 @@
+<Grid xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+      xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+      xmlns:model ="clr-namespace:MauiMVVM.Model"
+      xmlns:viewmodel ="clr-namespace:MauiMVVM.ViewModel"
+      xmlns:con="clr-namespace:MauiMVVM.Controls"
+      x:Class="MauiMVVM.Controls.FilterPanel"
+      x:DataType="viewmodel:DataItemListViewModel"
+      RowDefinitions="Auto,*,Auto"
+      ColumnDefinitions="*">
+    <SearchBar
+        Grid.Row="0"
+        x:Name="SearchBar" 
+        Margin="2,0,2,0"
+        BackgroundColor="DarkGray"
+        Text="{Binding SearchText}" 
+        SearchCommand="{Binding SearchDataItemsComand}"/>
+      
+    <ListView 
+        Grid.Row="1"
+        ItemsSource="{Binding FiltredFilds}"
+        Margin="-12,0,0,0"
+        SelectionMode="None"
+        VerticalScrollBarVisibility="Never">
+        <ListView.ItemTemplate>
+            <DataTemplate x:DataType="viewmodel:GroupItem">
+                <ViewCell>
+                    <Frame
+                        BackgroundColor="DarkGray"
+                        Padding="0, 0, 15, 0">
+                        <con:ExpandElement
+                                 GroupExpandItem="{Binding .}"/>
+                    </Frame>
+                </ViewCell>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
+    <Grid
+        ColumnDefinitions="*,*"
+        Grid.Row="2">
+        <Button
+            Grid.Column="0"
+            Text="Search"
+            Command ="{Binding FilterDataItemsComand}">
+        </Button>
+        <Button
+            Grid.Column="1"
+            Text="Clean"
+            Command ="{Binding CleanFilterDataItemsComand}">
+        </Button>
+    </Grid>
+
+</Grid>
+
+
